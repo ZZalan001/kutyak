@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewData["Title"] = "Kutyák adatai";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to detail your site's privacy policy.</p>
+
+<div>
+    <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Kutya neve</th>
+            <th>Életkora</th>
+            <th>Fajta</th>
+            <th>Gazda neve</th>
+            <th>Irányítószám</th>
+            <th>Település</th>
+            <th>Cím</th>
+            <th>Chip száma</th>
+            <th>Kép</th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach(Kutya kutya in Model)
+            {
+                <tr>
+                    <td>@kutya.Id</td>
+                    <td>@kutya.Nev</td>
+                    <td>@kutya.Eletkor</td>
+                    <td>@kutya.Fajta.Nev</td>
+                    <td>@kutya.Gazda.Nev</td>
+                    <td>@kutya.Gazda.Irszam</td>
+                    <td>@kutya.Gazda.IrszamNavigation.Telepules</td>
+                    <td>@kutya.Gazda.Lakcim</td>
+                    <td>@kutya.ChipNumber</td>
+                    <td>
+                        <img src=@Program.ImageConvert(kutya.IndexKep) width="64" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+</table>
+</div>

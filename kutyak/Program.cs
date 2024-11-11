@@ -2,6 +2,10 @@ namespace kutyak
 {
     public class Program
     {
+        public static string ImageConvert(byte[] image)
+        {
+            return string.Format($"data:image/jpg;base64,{Convert.ToBase64String(image)}");
+        }
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);

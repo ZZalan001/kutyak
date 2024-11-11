@@ -1,4 +1,5 @@
 using kutyak.Models;
+using kutyak.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -21,6 +22,11 @@ namespace kutyak.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public IActionResult Kutyak()
+        {
+            return View(KutyaService.GetKutyak());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

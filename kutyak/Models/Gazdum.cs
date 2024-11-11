@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace kutyak.Models;
 
@@ -18,6 +19,6 @@ public partial class Gazdum
     public bool Nem { get; set; }
 
     public virtual Telepulesek IrszamNavigation { get; set; } = null!;
-
+    [JsonIgnore]
     public virtual ICollection<Kutya> Kutyas { get; set; } = new List<Kutya>();
 }
