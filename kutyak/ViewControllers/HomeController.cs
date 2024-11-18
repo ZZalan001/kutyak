@@ -36,6 +36,11 @@ namespace kutyak.Controllers
         {
             return View(KutyaService.GetKutyaGumi(id));
         }
+        public void KutyaTorol(int id)
+        {
+            
+            KutyaService.KutyaTorol(id);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

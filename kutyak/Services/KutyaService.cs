@@ -72,5 +72,23 @@ namespace kutyak.Services
                 }
             };
         }
+
+        public static string KutyaTorol(int id)
+        {
+            using (var context = new KutyakContext())
+            {
+                try
+                {
+                    Kutya kutya = new Kutya { Id = id };
+                    context.Kutyas.Remove(kutya);
+                    //context.SaveChanges();
+                    return "Sike(haha Sike xddddd)resen törölve a kutya adata.";
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+            };
+        }
     }
 }
