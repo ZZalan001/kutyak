@@ -1,0 +1,16 @@
+﻿@using kutyak.DTOs;
+@{
+    ViewData["Title"] = "Kutyuska pofija :D";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Így néz ki a kutyuska</p>
+
+@if(Model != null)
+{
+    <img class="img-fluid img-thumbnail" src="@Program.ImageConvert((Model as KutyaGumi).Kep)" />
+}
+else
+{
+    <img style="margin-left:auto;margin-right:auto;display:block;" src="~/img/@Program.HibaNevGenerator()" />
+}

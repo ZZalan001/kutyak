@@ -1,0 +1,47 @@
+﻿@using kutyak.DTOs;
+@{
+    ViewData["Title"] = "Kutyák adatai DTO";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to detail your site's privacy policy.</p>
+
+<div>
+    <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Kutya neve</th>
+            <th>Életkora</th>
+            <th>Fajta</th>
+            <th>Gazda neve</th>
+            <th>Irányítószám</th>
+            <th>Település</th>
+            <th>Cím</th>
+            <th>Chip száma</th>
+            <th>Kép</th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach(KutyakDTO kutya in Model)
+            {
+                <tr>
+                    <td>@kutya.Id</td>
+                    <td>@kutya.Nev</td>
+                    <td>@kutya.Eletkor</td>
+                    <td>@kutya.FajtaNev</td>
+                    <td>@kutya.GazdaNev</td>
+                    <td>@kutya.Irszam</td>
+                    <td>@kutya.Telepules</td>
+                    <td>@kutya.Lakcim</td>
+                    <td>@kutya.ChipNumber</td>
+                    <td>
+                        <a asp-controller="Home" asp-action="KutyaKep" asp-route-id="@kutya.Id">
+                            <img src=@Program.ImageConvert(kutya.IndexKep) width="64" />
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+</table>
+</div>

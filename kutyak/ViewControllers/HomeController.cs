@@ -28,6 +28,14 @@ namespace kutyak.Controllers
         {
             return View(KutyaService.GetKutyak());
         }
+        public IActionResult KutyakDTO()
+        {
+            return View(KutyaService.GetKutyakDTO());
+        }
+        public IActionResult KutyaKep(int id)
+        {
+            return View(KutyaService.GetKutyaGumi(id));
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

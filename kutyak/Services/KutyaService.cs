@@ -53,5 +53,24 @@ namespace kutyak.Services
                 }
             };
         }
+
+        public static KutyaGumi GetKutyaGumi(int id)
+        {
+            using (var context = new KutyakContext())
+            {
+                try
+                {
+                    var response = context.Kutyas.Where(f=>f.Id == id).Select(f => new KutyaGumi()
+                    {
+                        Kep = f.Kep
+                    }).ToList();
+                    return response[0];
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+            };
+        }
     }
 }
