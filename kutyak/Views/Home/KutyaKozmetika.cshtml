@@ -92,6 +92,15 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-4 col-sm-12">
+            <div class="card" style="width:80%;margin:auto">
+                <img id="kep" class="card-img-top" src="@Program.ImageConvert((ViewBag.Kutya as Kutya).Kep)" title="Kép" />
+                <div class="card-body">
+                    <p class="card-text text-center font-weight-bold">Kép</p>
+                    <input id="kepGomb" type="file" onchange="kepBeallit()" />
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
