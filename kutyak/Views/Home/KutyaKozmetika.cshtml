@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Kutya kozmetika";
+}
+<h1 style="text-align:center">@ViewData["Title"]</h1>
+<h1>@((ViewBag.Kutya as Kutya).Nev)</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            <form onsubmit="kutyaTarol()">
+                <div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

@@ -82,13 +82,28 @@ namespace kutyak.Services
                     Kutya kutya = new Kutya { Id = id };
                     context.Kutyas.Remove(kutya);
                     //context.SaveChanges();
-                    return "Sike(haha Sike xddddd)resen törölve a kutya adata.";
+                    return "Sikeresen törölve a kutya adata.";
                 }
                 catch (Exception ex)
                 {
                     return ex.Message;
                 }
             };
+        }
+        public static Kutya GetKutya(int id)
+        {
+            using (
+                var context = new KutyakContext())
+            {
+                try
+                {
+                    return context.Kutyas.FirstOrDefault(f=>f.Id == id);
+                }
+                catch
+                {
+                    return new Kutya { Id = 0 };
+                }
+            }
         }
     }
 }
