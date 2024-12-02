@@ -39,11 +39,20 @@ namespace kutyak.Controllers
         public void KutyaTorol(int id)
         {
             //return Redirect("/Home/KutyakDTO");
-            KutyaService.KutyaTorol(id);
+           KutyaService.KutyaTorol(id);
         }
-        public IActionResult KutyaKozmetika(int id)
+        public async Task<IActionResult> KutyaKozmetika(int id)
         {
-            ViewBag.Kutya = KutyaService.GetKutya(id);
+            await Task.Delay(500);
+            Kutya kutya = KutyaService.GetKutya(id);
+            if (kutya == null) 
+            { 
+                ViewBag.Kutya = new Kutya { Id = 0, IndexKep = new byte[0], Kep = new byte[0] };
+            }
+            else
+            {
+                ViewBag.Kutya = kutya;
+            }
             ViewBag.Gazdak = GazdaService.GetGazdak();
             ViewBag.Fajtak = FajtaService.GetFajtak();
             return View(ViewBag);

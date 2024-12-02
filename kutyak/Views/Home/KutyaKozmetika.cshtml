@@ -1,14 +1,118 @@
-﻿@{
+﻿<script type="text/javascript">
+
+    let indexKep="";
+    let kep="";
+
+    function indexKepBeallit(){
+        let preview = document.getElementById("indexKep");
+        let file = document.getElementById("indexKepGomb").files[0];
+        let reader = new FileReader();
+        reader.onload = function(e){
+            preview.src = e.target.result;
+            indexKep = file;
+        }
+        reader.readAsDataURL(file);
+    }
+
+    function kepBeallit(){
+        let preview = document.getElementById("kep");
+        let file = document.getElementById("kepGomb").files[0];
+        let reader = new FileReader();
+        reader.onload = function(e){
+            preview.src = e.target.result;
+            kep = file;
+        }
+        reader.readAsDataURL(file);
+    }
+
+    async function image2file(name){
+        const img = document.getElementById(name);
+        const canvas = document.getElementById(name + "Canvas");
+        const ctx = canvas.getContext('2d');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        ctx.drawImage(img,0,0);
+        canvas.toBlob(function (blob){
+            if (blob){
+                const file = new File([blob], name + ".jpg",{
+                    type: "image/jpeg",
+                    lastModified:Date.now()
+                });
+                if(name=="kep"){
+                    kep=file;
+                }
+                else{
+                    indexKep=file;
+                }
+            }
+            else{
+                console.error("A canvas tartalmának Blob-ba konvertálása sikertelen");
+            }
+        },"image/jpg");
+    }
+
+    function kutyaTarol(){
+        if(kep=="" || indexKep==""){
+            alert("Az indexkép és a kép kiválasztása kötelező!")
+        }
+        else{
+            let body = {
+                "Id":ParseInt(document.getElementById("id").textContent),
+                "GazdaId":ParseInt(document.getElementById("gazdaId").value),
+                "FajtaId":ParseInt(document.getElementById("fajtaId").value),
+                "Eletkor":ParseInt(document.getElementById("eletkor").value),
+                "ChipNumber":document.getElementById("chipNumber").value,
+                "Nev":document.getElementById("nev").value,
+            }
+            let url = "https://localhost:7263/api/kutya";
+            var formData = new FormData();
+            formData.append("Json",JSON.stringify(body));
+            formData.append("indexKep",indexKep);
+            formData.append("kep",kep);
+            if(body.Id != 0){
+
+                axios.put(url, formData).then((response) => {
+                    alert(response.data);
+                    window.location.replace("../KutyakDTO");
+                    }).catch((error) => {
+                    alert(error);
+                    window.location.replace("../KutyakDTO");
+                });
+            }
+            else{
+                axios.post(url, formData).then((response) => {
+                    alert(response.data);
+                    window.location.replace("../KutyakDTO");
+                    }).catch((error) => {
+                    alert(error);
+                    window.location.replace("../KutyakDTO");
+                });
+            }
+            
+        }
+    }
+
+    window.addEventListener('load',function(){
+        image2file("indexKep");
+        image2file("kep");
+        console.log(indexKep);
+        console.log(kep);
+    })
+    
+</script>
+
+@{
     ViewData["Title"] = "Kutya kozmetika";
 }
 <h1 style="text-align:center">@ViewData["Title"]</h1>
 <h1>@((ViewBag.Kutya as Kutya).Nev)</h1>
 
 <div class="container">
+    <form onsubmit="kutyaTarol()">
     <div class="row">
         <div class="col-md-4 col-sm-12">
             <label id="id" hidden>@((ViewBag.Kutya as Kutya).Id)</label>
-            <form onsubmit="kutyaTarol()">
+            
                 
                 <div class="form-floating mb-3">
                     <input
@@ -81,11 +185,12 @@
                     </select>
                     <label for="fajtaId">Fajta</label>
                 </div>
-            </form>
+            
         </div>
         <div class="col-md-4 col-sm-12">
             <div class="card" style="width:80%;margin:auto">
                 <img id="indexKep" class="card-img-top" src="@Program.ImageConvert((ViewBag.Kutya as Kutya).IndexKep)" title="Indexkép"/>
+                <canvas id="indexKepCanvas" style="display:none;"></canvas>
                 <div class="card-body">
                     <p class="card-text text-center font-weight-bold">Indexkép</p>
                     <input id="indexKepGomb" type="file" onchange="indexKepBeallit()"/>
@@ -95,13 +200,18 @@
         <div class="col-md-4 col-sm-12">
             <div class="card" style="width:80%;margin:auto">
                 <img id="kep" class="card-img-top" src="@Program.ImageConvert((ViewBag.Kutya as Kutya).Kep)" title="Kép" />
+                <canvas id="kepCanvas" style="display:none;"></canvas>
                 <div class="card-body">
                     <p class="card-text text-center font-weight-bold">Kép</p>
                     <input id="kepGomb" type="file" onchange="kepBeallit()" />
                 </div>
             </div>
         </div>
-    </div>
+        <button id="mentesGomb" class="w-100 mb-2 btn btn-success btn-lg rounded-3">
+            Adatok mentése!
+        </button>
+        </div>
+    </form>
 </div>
 
 
