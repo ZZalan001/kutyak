@@ -23,6 +23,21 @@ namespace kutyak.Controllers
         {
             return View();
         }
+        public IActionResult Fajta()
+        {
+            return View(FajtaService.GetFajtak());
+        }
+
+        public IActionResult FajtaDTO()
+        {
+            return View(FajtaService.GetFajtakDTO());
+        }
+
+        public void FajtaTorol(int id)
+        {
+            //return Redirect("/Home/KutyakDTO");
+            FajtaService.FajtaTorol(id);
+        }
 
         public IActionResult Kutyak()
         {
@@ -54,6 +69,22 @@ namespace kutyak.Controllers
                 ViewBag.Kutya = kutya;
             }
             ViewBag.Gazdak = GazdaService.GetGazdak();
+            ViewBag.Fajtak = FajtaService.GetFajtak();
+            return View(ViewBag);
+        }
+
+        public async Task<IActionResult> FajtaKozmetika(int id)
+        {
+            await Task.Delay(500);
+            Fajtum fajta = FajtaService.GetFajta(id);
+            if (fajta == null)
+            {
+                ViewBag.Fajta = new Fajtum { Id = 0,};
+            }
+            else
+            {
+                ViewBag.Fajta = fajta;
+            }
             ViewBag.Fajtak = FajtaService.GetFajtak();
             return View(ViewBag);
         }

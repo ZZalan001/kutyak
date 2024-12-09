@@ -1,0 +1,77 @@
+﻿<script type="text/javascript">
+
+    function fajtaTarol(){
+            let body = {
+                "Id":ParseInt(document.getElementById("Id").textContent),
+                "Nev":document.getElementById("Nev").value,
+                "Leiras":document.getElementById("Leiras").value
+            }
+            let url = "https://localhost:7263/api/kutya";
+            var formData = new FormData();
+            formData.append("Json",JSON.stringify(body));
+            if(body.Id != 0){
+
+                axios.put(url, formData).then((response) => {
+                    alert(response.data);
+                    window.location.replace("../FajtaDTO");
+                    }).catch((error) => {
+                    alert(error);
+                    window.location.replace("../FajtaDTO");
+                });
+            }
+            else{
+                axios.post(url, formData).then((response) => {
+                    alert(response.data);
+                    window.location.replace("../FajtaDTO");
+                    }).catch((error) => {
+                    alert(error);
+                    window.location.replace("../FajtaDTO");
+                });
+            }
+            
+        }
+   
+    
+</script>
+
+@{
+    ViewData["Title"] = "Fajta kozmetika";
+}
+<h1 style="text-align:center">@ViewData["Title"]</h1>
+<h1>@((ViewBag.Fajta as Fajtum).Nev)</h1>
+
+<div class="container">
+    <form onsubmit="fajtaTarol()">
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            <label id="id" hidden>@((ViewBag.Fajta as Fajtum).Id)</label>
+            
+                
+                <div class="form-floating mb-3">
+                    <input
+                        id="nev"
+                        type="text"
+                        class="form-control rounded"
+                        value="@((ViewBag.Fajta as Fajtum).Nev)"
+                        required/>
+                        <label for="nev">Fajta neve</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input id="leiras"
+                           type="text"
+                           class="form-control rounded"
+                           value="@((ViewBag.Fajta as Fajtum).Leiras)"
+                           required />
+                    <label for="leiras">Fajta leírása</label>
+                </div>
+       
+        </div>
+        <button id="mentesGomb" class="w-100 mb-2 btn btn-success btn-lg rounded-3">
+            Adatok mentése!
+        </button>
+        </div>
+    </form>
+</div>
+
+

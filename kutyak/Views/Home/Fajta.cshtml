@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Fajta";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to detail your site's privacy policy.</p>
+
+<div>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Fajta neve</th>
+                <th>Fajta leírása</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Fajtum fajta in Model)
+            {
+                <tr>
+                    <td>@fajta.Id</td>
+                    <td>@fajta.Nev</td>
+                    <td>@fajta.Leiras</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

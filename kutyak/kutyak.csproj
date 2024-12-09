@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Home\FajtaDTO.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Update="wwwroot\img\Error-404-1.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
